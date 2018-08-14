@@ -1,0 +1,295 @@
+%% LaTeX header file for Math 821, Algebraic Topology
+%% JLM 1/9/18
+%% Feel free to use or modify these macros as you see fit.
+
+% General stuff
+\documentclass[reqno]{amsart}
+\usepackage{amssymb,amsmath,amsthm,graphics,hyperref,mathrsfs,stmaryrd,dsfont,youngtab,tcolorbox,framed,blkarray,color,fullpage}
+\usepackage[all]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\numberwithin{equation}{section}
+\renewcommand{\phi}{\varphi}
+
+%%%%%%%%%%%%%%%%    Macros for figures   %%%%%%%%%%%%%%%%
+
+%% I like to keep all my figures in a subfolder called "figs".  If you keep figures in the same folder as the source .tex tile, remove "figs/" from the macros.
+
+%% Usage: \includefigure{height}{width}{filename}
+\newcommand{\includefigure}[3]{{
+  \begin{center}
+  \resizebox{#1}{#2}{\includegraphics{{figs/#3}}}
+  \end{center}}}
+\newcommand{\includefigurewithinmath}[3]{{
+  \resizebox{#1}{#2}{\includegraphics{{figs/#3}}}}}
+
+%%%%%%%%%%%%%%%%   Vertical spacing   %%%%%%%%%%%%%%%%
+\newcommand{\hugepad}{\rule[-14mm]{0mm}{30mm}}
+\newcommand{\bigpad}{\rule[-5mm]{0mm}{15mm}}
+\newcommand{\bigpadup}{\rule{0mm}{10mm}}
+\newcommand{\bigpaddown}{\rule[-5mm]{0mm}{5mm}}
+\newcommand{\smallpad}{\rule[-1.5mm]{0mm}{5mm}}
+\newcommand{\pad}{\rule[-3mm]{0mm}{8mm}}
+\newcommand{\padup}{\rule{0mm}{5mm}}
+\newcommand{\paddown}{\rule[-3mm]{0mm}{2mm}}
+\newcommand{\blank}{\rule{1.25in}{0.25mm}}
+\newcommand{\yell}[1]{\begin{framed}{#1}\end{framed}}
+\newcommand{\bang}{$\bullet$\quad}
+\newcommand{\indnt}{\phantom{.}\qquad}
+\newcommand{\littleline}{\begin{center}\rule{4in}{0.5bp}\end{center}}
+\newcommand{\defterm}[1]{\boldmath\textbf{#1}\unboldmath}
+
+\newcommand{\icol}[1]{% inline column vector
+  \left(\begin{smallmatrix}#1\end{smallmatrix}\right)%
+}
+
+%%%%%%%%%%%%%%%%   Colors for TikZ and text  %%%%%%%%%%%%%%%%%
+
+\definecolor{light}{gray}{.75}
+\definecolor{med}{gray}{.5}
+\definecolor{dark}{gray}{.25}
+\newcommand{\Red}[1]{{\color{red}{#1}}}
+\newcommand{\RED}[1]{{\color{red}{\boldmath\textbf{#1}\unboldmath}}}
+\newcommand{\Blue}[1]{{\color{blue}{#1}}}
+\newcommand{\BLUE}[1]{{\color{blue}{\boldmath\textbf{#1}\unboldmath}}}
+
+%%%%%%%%%%%%%%%%%%%%   Hyperlinks   %%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\hreftext}[2]{\href{#1}{\Blue{#2}}}
+\newcommand{\hrefurl}[2]{\href{#1}{\Blue{\tt #2}}}
+
+%%%%%%%%%%%%%%%%%%%%   Math operators   %%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\interior}{Int}
+\DeclareMathOperator{\Mod}{Mod}
+\newcommand{\etale}{\'etal{e\xspace}}
+
+\DeclareMathOperator{\Ab}{Ab}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Comm}{Comm}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Link}{link}
+\DeclareMathOperator{\nullspace}{nullspace}
+\DeclareMathOperator{\Poin}{Poin}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\Star}{star}
+\DeclareMathOperator{\support}{support}
+\DeclareMathOperator{\vol}{vol}
+
+%%%%%%%%%%%%%%%%%%%%   Theorem environments with automatic numbering
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{problem}[theorem]{Problem}
+\theoremstyle{remark}
+\newtheorem{exercise}{Exercise}
+
+%%%%%%%%%%%%%%%%%%%%   Unnumbered theorem proclamations
+
+\newcommand{\cor}{{\bf Corollary: }}
+\newcommand{\defn}{{\bf Definition: }}
+\newcommand{\defnthm}{{\bf Definition/Theorem: }}
+\newcommand{\defnprop}{{\bf Definition/Proposition: }}
+\newcommand{\defns}{{\bf Definitions: }}
+\newcommand{\exa}{{\bf Example: }}
+\newcommand{\fact}{{\bf Fact: }}
+\newcommand{\lem}{{\bf Lemma: }}
+\newcommand{\notn}{{\bf Notation: }}
+\newcommand{\obs}{{\bf Observation: }}
+\newcommand{\note}{{\bf Note: }}
+\newcommand{\prop}{{\bf Proposition: }}
+\newcommand{\rmk}{{\bf Remark: }}
+\newcommand{\skpr}{\emph{Sketch of proof: }}
+\newcommand{\soln}{{\bf Solution: }}
+\newcommand{\altsoln}{{\bf Alternate Solution: }}
+\newcommand{\altaltsoln}{{\bf Another Alternate Solution: }}
+\newcommand{\thm}{{\bf Theorem: }}
+
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\thalf}{\tfrac{1}{2}}
+\newcommand{\dhalf}{\dfrac{1}{2}}
+
+\newcommand{\0}{\emptyset}
+\newcommand{\bd}{\partial} %% boundary
+\newcommand{\dju}{\ensuremath{\mathaccent\cdot\cup}} %% disjoint union
+\newcommand{\eqdef}{\overset{\rm def}{=}}
+\newcommand{\ergo}{\therefore}  %% just because it's shorter
+\newcommand{\excise}[1]{} % for commenting out large blocks of LaTeX source
+\newcommand{\intersection}{\cap}
+\newcommand{\isom}{\cong}  %% homeomorphism
+\newcommand{\htop}{\simeq} %% homotopy equivalence
+\newcommand{\ov}[1]{\overline{{#1}}}
+\newcommand{\qandq}{\quad\text{and}\quad}
+\newcommand{\qqandqq}{\qquad\text{and}\qquad}
+\newcommand{\qand}{\quad\text{and}}
+\newcommand{\ray}{\overrightarrow}
+\newcommand{\rchi}{\raisebox{0.05cm}{\ensuremath{\chi}}}  %% because chi looks funny otherwise
+\newcommand{\sm}{\setminus}
+\newcommand{\st}{~|~}		%% ``such that''
+\newcommand{\www}{\mathsf w}	%% winding number
+\newcommand{\x}{\times}
+\newcommand{\union}{\cup}
+\newcommand{\zerovec}{\mathbf{0}}
+
+%% Arrows
+\newcommand{\into}{\hookrightarrow} % injection
+\newcommand{\onto}{\twoheadrightarrow} % surjection
+\newcommand{\inj}{\hookrightarrow} % injection
+\newcommand{\surj}{\twoheadrightarrow} % surjection
+
+%% Arrows for use with xy
+\newcommand{\rto}{\ar[r]}
+\newcommand{\rrto}{\ar[rr]}
+\newcommand{\lto}{\ar[l]}
+\newcommand{\llto}{\ar[ll]}
+\newcommand{\uto}{\ar[u]}
+\newcommand{\uuto}{\ar[uu]}
+\newcommand{\dto}{\ar[d]}
+\newcommand{\ddto}{\ar[dd]}
+\newcommand{\dlto}{\ar[dl]}
+\newcommand{\drto}{\ar[dr]}
+\newcommand{\ulto}{\ar[ul]}
+\newcommand{\urto}{\ar[ur]}
+\newcommand{\ddlto}{\ar[ddl]}
+\newcommand{\dllto}{\ar[dll]}
+\newcommand{\ddrto}{\ar[ddr]}
+\newcommand{\drrto}{\ar[drr]}
+\newcommand{\uulto}{\ar[uul]}
+\newcommand{\ullto}{\ar[ull]}
+\newcommand{\uurto}{\ar[uur]}
+\newcommand{\urrto}{\ar[urr]}
+\newcommand{\ddllto}{\ar[ddll]}
+\newcommand{\uullto}{\ar[uull]}
+
+%% Straight lines for use with xy
+\newcommand{\rlineto}{\ar@{-}[r]}
+\newcommand{\rrlineto}{\ar@{-}[rr]}
+\newcommand{\llineto}{\ar@{-}[l]}
+\newcommand{\lllineto}{\ar@{-}[ll]}
+\newcommand{\ulineto}{\ar@{-}[u]}
+\newcommand{\uulineto}{\ar@{-}[uu]}
+\newcommand{\dlineto}{\ar@{-}[d]}
+\newcommand{\ddlineto}{\ar@{-}[dd]}
+\newcommand{\dllineto}{\ar@{-}[dl]}
+\newcommand{\drlineto}{\ar@{-}[dr]}
+\newcommand{\ullineto}{\ar@{-}[ul]}
+\newcommand{\urlineto}{\ar@{-}[ur]}
+\newcommand{\ddllineto}{\ar@{-}[ddl]}
+\newcommand{\dlllineto}{\ar@{-}[dll]}
+\newcommand{\ddrlineto}{\ar@{-}[ddr]}
+\newcommand{\drrlineto}{\ar@{-}[drr]}
+\newcommand{\uullineto}{\ar@{-}[uul]}
+\newcommand{\ulllineto}{\ar@{-}[ull]}
+\newcommand{\uurlineto}{\ar@{-}[uur]}
+\newcommand{\urrlineto}{\ar@{-}[urr]}
+
+%% Boldface letters
+\renewcommand{\aa}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\zz}{\mathbf{z}}
+
+%% Calligraphic letters
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\T}{\mathcal{T}}
+
+%% Fancy script letters
+\newcommand{\BB}{\mathscr{B}}
+\newcommand{\CC}{\mathscr{C}}
+\newcommand{\FF}{\mathscr{F}}
+\newcommand{\II}{\mathscr{I}}
+\newcommand{\LL}{\mathscr{L}}
+\newcommand{\PP}{\mathscr{P}}
+\renewcommand{\SS}{\mathscr{S}}
+\newcommand{\TT}{\mathscr{T}}
+\newcommand{\XX}{\mathscr{X}}
+
+%% Blackboard bold letters
+\newcommand{\Aa}{\mathbb{A}}
+\newcommand{\Cc}{\mathbb{C}}
+\newcommand{\Ff}{\mathbb{F}}
+\newcommand{\Nn}{\mathbb{N}}
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\Qq}{\mathbb{Q}}
+\newcommand{\Rr}{\mathbb{R}}
+\newcommand{\Ss}{\mathbb{S}}
+\newcommand{\Zz}{\mathbb{Z}}
+\newcommand{\IdMap}{\mathds{1}}
+
+\newcommand{\RP}{\Rr P}
+\newcommand{\CP}{\Cc P}
+\newcommand{\RPN}{\Rr P^n}
+\newcommand{\CPN}{\Cc P^n}
+\newcommand{\RPn}{\Rr P^n}
+\newcommand{\CPn}{\Cc P^n}
+
+%% tilde H for reduced homology
+\newcommand{\HH}{\tilde H}
+
+%% big double angle brackets
+\newcommand{\Langle}{\big\langle\!\!\big\langle}
+\newcommand{\Rangle}{\big\rangle\!\!\big\rangle}
+
+%% macros for automatic problem numbering
+\newcounter{probno}
+\setcounter{probno}{0}
+\newcounter{partno}
+\setcounter{partno}{0}
+
+%% versions that don't print the number of points
+\newcommand{\yellprob}[1]{%
+  \bigskip\begin{framed}
+  \setcounter{partno}{0}%
+  \addtocounter{probno}{1}%
+  {\bf Problem~\#{\arabic{probno}}}\quad\bf\boldmath #1\unboldmath
+  \end{framed}}
+
+\newcommand{\yellprobpart}[1]{
+  \bigskip\begin{framed}%
+  \addtocounter{partno}{1}%
+  {\bf (\#\arabic{probno}\alph{partno})}\ \ \bf\boldmath #1\unboldmath
+  \end{framed}}
+
+\newcommand{\prob}{
+  \vskip10bp%
+  \setcounter{partno}{0}%
+  \addtocounter{probno}{1}%
+  {\bf Problem~\#{\arabic{probno}}}\quad}
+\newcommand{\probpart}{%\rule{0in}{0in}\\ \phantom{xxx}
+  \addtocounter{partno}{1}%
+  {\bf (\#\arabic{probno}\alph{partno})}\ \ }
+\newcommand{\probcont}{%
+  {\bf Problem~\#{\arabic{probno}}}~(\emph{continued})}
+\newcommand{\probo}{
+  \setcounter{partno}{0}%
+  \addtocounter{probno}{1}%
+  {\bf (\#\arabic{probno})}\ \ }
+
+\newcommand{\abs}[1] {
+  \left| #1 \right|}
