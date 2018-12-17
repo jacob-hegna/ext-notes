@@ -28,35 +28,72 @@
 
 \maketitle
 
-The following are a collection of notes\footnote{These notes by Peter May served as an invaluable guide to basic facts concerning the topics presented here http://www.math.uchicago.edu/~may/MISC/TorExt.pdf} on basic properties of $\Ext$. We work in the category of $R$-modules for a commutative unital ring $R$. However, at first we will introduce derived functors in a more general setting, then specialize to $\Ext$.
+These notes were used to deliver a lecture on derived functors and the universal
+coefficient theorem to MATH $821$ at the University of Kansas. This is not
+original work, and much of it is taken from two sources:
+\begin{itemize}
+    \item These notes by Peter May: http://www.math.uchicago.edu/~may/MISC/TorExt.pdf
+    \item This mathoverflow post:
+        https://mathoverflow.net/questions/1151/sheaf-cohomology-and-injective-resolutions.
+\end{itemize}
 
 \tableofcontents
 
 \section{Conventions}
 
-In these notes, a \textit{category} $\mathcal{A}$ is a collection of objects $\mathop{Ob}(\mathcal{A})$ and, for any two objects $A, B \in \mathcal{A}$ a collection of maps $\Hom_\mathcal{A}(A, B)$. It is usually at this point that notes will mention that this definition often has some set-theoretic issues, and say either
+In these notes, a \textit{category} $\mathcal{A}$ is a collection of objects
+$\mathop{Ob}(\mathcal{A})$ and, for any two objects $A, B \in \mathcal{A}$ a
+collection of maps $\Hom_\mathcal{A}(A, B)$. It is usually at this point that
+notes will mention that this definition often has some set-theoretic issues, and
+say either
 \begin{enumerate}
     \item we ignore all set theoretic issues
-    \item all categories are assumed to be \textit{locally small}, which means all $\Hom$ objects are indeed sets, not proper classes
+    \item all categories are assumed to be \textit{locally small}, which means
+        all $\Hom$ objects are indeed sets, not proper classes
 \end{enumerate}
-these notes will take the first approach. The $\Hom$ sets describe formal arrows from $A$ to $B$; we require that there be an identity arrow for every object, and that there is an operation $\circ$ called \textit{composition} which is associative. A \textit{functor} between categories is a map $\mathcal{F} : \mathcal{A} \to \mathcal{B}$ which takes objects to objects and arrows to arrows. In particular, the mapping of objects and arrows should play nicely, in other words if $f : A \to B$ in $\mathcal{A}$, then $\mathcal{F}(f)$ should be a map from $\mathcal{F}(A) \to \mathcal{F}(B)$. It should finally be a homomorphism under composition.
+these notes will take the first approach. The $\Hom$ sets describe formal arrows
+from $A$ to $B$; we require that there be an identity arrow for every object,
+and that there is an operation $\circ$ called \textit{composition} which is
+associative. A \textit{functor} between categories is a map $\mathcal{F} :
+\mathcal{A} \to \mathcal{B}$ which takes objects to objects and arrows to
+arrows. In particular, the mapping of objects and arrows should play nicely, in
+other words if $f : A \to B$ in $\mathcal{A}$, then $\mathcal{F}(f)$ should be a
+map from $\mathcal{F}(A) \to \mathcal{F}(B)$. It should finally be a
+homomorphism under composition.
 
-We will often refer to the notion of an Abelian category. The definition is a bit involved, and the reader is welcome to search it out on their own, but the two most important things to remember about such categories are that
+We will often refer to the notion of an Abelian category. The definition is a
+bit involved, and the reader is welcome to search it out on their own, but the
+two most important things to remember about such categories are that
 \begin{enumerate}
-    \item They possess all kernels, cokernels, products, coproducts, and there exists a zero object.
-    \item Any abelian category $\mathcal{A}$ has a fully faithful embedding into a subcategory of $\Mod(R)$. Note, however, that $R$ need not be commutative, so (for instance) things like tensor products need not make sense in every abelian category. In these notes, if a tensor product is used, the reader should assume that the category in question is (essentially) modules over a commutative ring.
+    \item They possess all kernels, cokernels, products, coproducts, and there
+        exists a zero object.
+
+    \item Any abelian category $\mathcal{A}$ has a fully faithful embedding into
+        a subcategory of $\Mod(R)$. Note, however, that $R$ need not be
+        commutative, so (for instance) things like tensor products need not make
+        sense in every abelian category. In these notes, if a tensor product is
+        used, the reader should assume that the category in question is
+        (essentially) modules over a commutative ring. 
 \end{enumerate}
 These categories are a standard context for homological algebra.
 
 \section{Derived functors}
 
 \begin{definition}
-    A \textit{cochain complex} in an abelian category $\mathcal{A}$ is a collection of objects $\{A_i\}_{i \in \Zz}$ where $A_i = 0$ for $i < 0$, and maps $\delta_i : A_i \to A_{i+1}$ which satisfy the \textit{cochain condition}, $\delta^2 = 0$.
+    A \textit{cochain complex} in an abelian category $\mathcal{A}$ is a
+    collection of objects $\{A_i\}_{i \in \Zz}$ where $A_i = 0$ for $i < 0$, and
+    maps $\delta_i : A_i \to A_{i+1}$ which satisfy the \textit{cochain
+        condition}, $\delta^2 = 0$.
 \end{definition}
 
-Often it is convient to consider the cochain complex as a $\Zz_+$-graded object $A = \bigoplus A_i$ with the obvious map $\delta$. We say that the complex $(A, \delta)$ is \textit{exact} if $\ker{\delta}=\im{\delta}$. It is \textit{short exact} if it degenerates to the complex $0 \to A \to B \to C \to 0$, and \textit{long exact} otherwise.
+Often it is convient to consider the cochain complex as a $\Zz_+$-graded object
+$A = \bigoplus A_i$ with the obvious map $\delta$. We say that the complex $(A,
+\delta)$ is \textit{exact} if $\ker{\delta}=\im{\delta}$. It is \textit{short
+    exact} if it degenerates to the complex $0 \to A \to B \to C \to 0$, and
+\textit{long exact} otherwise.
 
-Given a functor $\mathcal{F}$ and a short exact sequence $0 \to A \to B \to C \to 0$, it is common to ask when the sequence
+Given a functor $\mathcal{F}$ and a short exact sequence $0 \to A \to B \to C
+\to 0$, it is common to ask when the sequence
 \begin{center}
     \begin{tikzcd}
         0 \ar[r] &
@@ -66,24 +103,47 @@ Given a functor $\mathcal{F}$ and a short exact sequence $0 \to A \to B \to C \t
         0
     \end{tikzcd}
 \end{center}
-is exact. In general, it is more interesting to study those functors $\mathcal{F}$ for which exactness fails. We say $\mathcal{F}$ is \textit{right exact} if the complex is exact everywhere but $\mathcal{F}(A)$, and \textit{left exact} if it is exact everywhere but $\mathcal{F}(C)$. $\mathcal{F}$ is \textit{exact} if it is both left and right exact.
+is exact. In general, it is more interesting to study those functors
+$\mathcal{F}$ for which exactness fails. We say $\mathcal{F}$ is \textit{right
+    exact} if the complex is exact everywhere but $\mathcal{F}(A)$, and
+\textit{left exact} if it is exact everywhere but $\mathcal{F}(C)$.
+$\mathcal{F}$ is \textit{exact} if it is both left and right exact.
 
 \begin{example}
-    An equivalence of categories is exact. The global section functor $\Gamma$ is left exact. The functor which assigns to a $G$-module $M$ the group $M^G$ is left exact. In general, if $\mathcal{F}$ is a right adjoint of some functor $\mathcal{G}$, then it is left exact and $\mathcal{G}$ is right exact.
+    An equivalence of categories is exact. The global section functor $\Gamma$
+    is left exact. The functor which assigns to a $G$-module $M$ the group $M^G$
+    is left exact. In general, if $\mathcal{F}$ is a right adjoint of some
+    functor $\mathcal{G}$, then it is left exact and $\mathcal{G}$ is right
+    exact.
+
 \end{example}
 
 \begin{remark}
-    Actually, the previous statements are a consequence of a much deeper fact: left adjoints preserve \textit{all} colimits, and right adjoints preserve \textit{all} limits. This is one of the reasons that in any category enriched over $\mathbf{Set}$, products look just like they do set-theoretically. Recall that functors $\mathcal{F} : \mathcal{A} \to \mathcal{B}$ and $\mathcal{G} : \mathcal{B} \to \mathcal{A}$ are said to be \textit{adjoint} if
+    Actually, the previous statements are a consequence of a much deeper fact:
+    left adjoints preserve \textit{all} colimits, and right adjoints preserve
+    \textit{all} limits. This is one of the reasons that in any category
+    enriched over $\mathbf{Set}$, products look just like they do
+    set-theoretically. Recall that functors $\mathcal{F} : \mathcal{A} \to
+    \mathcal{B}$ and $\mathcal{G} : \mathcal{B} \to \mathcal{A}$ are said to be
+    \textit{adjoint} if
     \[
-        \Hom_\mathcal{B}(\mathcal{F}(A), B) \simeq \Hom_\mathcal{A}(A, \mathcal{G}(B))
+        \Hom_\mathcal{B}(\mathcal{F}(A), B) \simeq \Hom_\mathcal{A}(A,
+        \mathcal{G}(B))
     \]
     For $A \in \mathcal{A}$ and $B \in \mathcal{B}$.
 \end{remark}
 
-Studying the failure of a short exact sequence to be exact after an application of $\mathcal{F}$ has given rise to some particularly interesting mathematics. For example, in algebraic geometry, a particular functor $\Gamma$ called the ``global sections'' functor is left exact, and studying why it fails to be right exact gives detailed information about the geometric object underlying the functor. Before introducing derived functors, however, we require the following definition.
+Studying the failure of a short exact sequence to be exact after an application
+of $\mathcal{F}$ has given rise to some particularly interesting mathematics.
+For example, in algebraic geometry, a particular functor $\Gamma$ called the
+``global sections'' functor is left exact, and studying why it fails to be right
+exact gives detailed information about the geometric object underlying the
+functor. Before introducing derived functors, however, we require the following
+definition.
 
 \begin{definition}
-    An object $A$ in an abelian category is \textit{injective} if, for all $f : G \to A$ and monomorphisms $h : G \to G'$, there is an $f'$ for which
+    An object $A$ in an abelian category is \textit{injective} if, for all $f :
+    G \to A$ and monomorphisms $h : G \to G'$, there is an $f'$ for which
     \begin{center}
         \begin{tikzcd}
             & A \\
@@ -96,7 +156,10 @@ Studying the failure of a short exact sequence to be exact after an application 
     In this context, we say that $f'$ is a lift of $h$ through $f$.
 \end{definition}
 
-An abelian category has \textit{enough injectives} if, for any object $A$, there is a monomorphism $i : A \to I$ where $I$ is injective. A \textit{monomorphism} is a map which behaves like an injection. More specifically, $i : X \to Y$ is a monomorphism if and only if commutivatiy of
+An abelian category has \textit{enough injectives} if, for any object $A$, there
+is a monomorphism $i : A \to I$ where $I$ is injective. A \textit{monomorphism}
+is a map which behaves like an injection. More specifically, $i : X \to Y$ is a
+monomorphism if and only if commutivatiy of
 \begin{center}
     \begin{tikzcd}
         A \ar[r, shift left, "\alpha"] \ar[r, swap, shift right, "\beta"] &
@@ -104,13 +167,26 @@ An abelian category has \textit{enough injectives} if, for any object $A$, there
         Y
     \end{tikzcd}
 \end{center}
-implies that $\alpha = \beta$. Equivalently, one could say that $\ker{i} = 0$ (whatever this means in an arbitrary abelian category).
+implies that $\alpha = \beta$. Equivalently, one could say that $\ker{i} = 0$
+(whatever this means in an arbitrary abelian category).
 
 \begin{remark}
-    Consider the exact sequence $0 \to A \to B \to C \to 0$. Suppose $A$ is injective. In the diagram used to define injectivity, take $G=A$, $f$ the identity on $A$, and $h$ the map from $A \to B$. Injectivity of $A$ is precisely the statement that the short exact sequence splits. If $\mathcal{F}$ is a covariant functor, then splitting of the sequence implies the identity $\mathcal{F}(C) \to \mathcal{F}(C)$ factors through $\mathcal{F}(B) \to \mathcal{F}(C)$. If $\mathcal{F}$ is left-exact, then the sequence $0 \to \mathcal{F}(A) \to \mathcal{F}(B) \to \mathcal{F}(C) \to 0$ is exact.
+    Consider the exact sequence $0 \to A \to B \to C \to 0$. Suppose $A$ is
+    injective. In the diagram used to define injectivity, take $G=A$, $f$ the
+    identity on $A$, and $h$ the map from $A \to B$. Injectivity of $A$ is
+    precisely the statement that the short exact sequence splits. If
+    $\mathcal{F}$ is a covariant functor, then splitting of the sequence implies
+    the identity $\mathcal{F}(C) \to \mathcal{F}(C)$ factors through
+    $\mathcal{F}(B) \to \mathcal{F}(C)$. If $\mathcal{F}$ is left-exact, then
+    the sequence $0 \to \mathcal{F}(A) \to \mathcal{F}(B) \to \mathcal{F}(C) \to
+    0$ is exact.
 \end{remark}
 
-Now, suppose we wish to develop a (co)homology theory which captures the failure of $\mathcal{F}$ to preserve (right) exactness. We would wish that $H^0(X)=\mathcal{F}(X)$, and we would also want that short exact sequences give rise to long exact sequences in cohomology. More concretely, if $0 \to A \to B \to C \to 0$ is exact, then we would want exactness of
+Now, suppose we wish to develop a (co)homology theory which captures the failure
+of $\mathcal{F}$ to preserve (right) exactness. We would wish that
+$H^0(X)=\mathcal{F}(X)$, and we would also want that short exact sequences give
+rise to long exact sequences in cohomology. More concretely, if $0 \to A \to B
+\to C \to 0$ is exact, then we would want exactness of
 \begin{center}
     \begin{tikzcd}
         0 \ar[r] &
@@ -123,9 +199,16 @@ Now, suppose we wish to develop a (co)homology theory which captures the failure
         \cdots
     \end{tikzcd}
 \end{center}
-Finally, if $0 \to \mathcal{F}(A) \to \mathcal{F}(B) \to \mathcal{F}(C) \to 0$ is exact, then all the higher cohomology objects of $A$ should vanish. In general, if $\mathcal{F}$ is left exact, we desire a cohomology theory. If it is right exact, we desire a homology theory. For the purposes of these notes, we will primarily be concerned with the cohomological case.
+Finally, if $0 \to \mathcal{F}(A) \to \mathcal{F}(B) \to \mathcal{F}(C) \to 0$
+is exact, then all the higher cohomology objects of $A$ should vanish. In
+general, if $\mathcal{F}$ is left exact, we desire a cohomology theory. If it is
+right exact, we desire a homology theory. For the purposes of these notes, we
+will primarily be concerned with the cohomological case.
 
-How\footnote{The following motivation is inspired shamelessly by https://mathoverflow.net/questions/1151/sheaf-cohomology-and-injective-resolutions} could we calculate the value of these objects $H^i({-})$? By fiat, we know that $H^0(X) = \mathcal{F}(X)$. To calculate $H^1(X)$, let us assume first we have a theory which satisfies the long exact sequence of cohomology. If we embed $X$ into an injective object $I^0$, we have a short exact sequence
+How could we calculate the value of these objects $H^i({-})$? By fiat, we know
+that $H^0(X) = \mathcal{F}(X)$. To calculate $H^1(X)$, let us assume first we
+have a theory which satisfies the long exact sequence of cohomology. If we embed
+$X$ into an injective object $I^0$, we have a short exact sequence
 \begin{center}
     \begin{tikzcd}
         0 \ar[r] &
@@ -135,7 +218,9 @@ How\footnote{The following motivation is inspired shamelessly by https://mathove
         0
     \end{tikzcd}
 \end{center}
-Taking the long exact sequence, we have that the higher $H^i(I^0)$ terms all vanish (by Remark 1.5), so the sequence degenerates to isomorphisms $H^i(K^1) \cong H^{i-1}(X)$ for $i > 1$. In the $i=1$ case, we have a sequence
+Taking the long exact sequence, we have that the higher $H^i(I^0)$ terms all
+vanish (by Remark 1.5), so the sequence degenerates to isomorphisms $H^i(K^1)
+\cong H^{i-1}(X)$ for $i > 1$. In the $i=1$ case, we have a sequence
 \begin{center}
     \begin{tikzcd}
         0 \ar[r] &
@@ -146,7 +231,13 @@ Taking the long exact sequence, we have that the higher $H^i(I^0)$ terms all van
         0
     \end{tikzcd}
 \end{center}
-This gives us that $H^1(X) = \mathcal{F}(K^1) / \im(\mathcal{F}(I^0))$, which lets us compute $H^1(X)$ in terms of $\mathcal{F}$ itself. But how do we calculate the higher cohomology of $K^1$ needed to recover the higher cohomology groups of $X$? We should embed $K^1$ into an injective object $I^1$ (with cokernel $K^2$), generating isomorphisms $H^1(K^1) \cong \mathcal{F}(K^2) / \im(\mathcal{F}(I^1))$. Repeating this process, we generate an \textit{injective resolution} of the object $X$
+This gives us that $H^1(X) = \mathcal{F}(K^1) / \im(\mathcal{F}(I^0))$, which
+lets us compute $H^1(X)$ in terms of $\mathcal{F}$ itself. But how do we
+calculate the higher cohomology of $K^1$ needed to recover the higher cohomology
+groups of $X$? We should embed $K^1$ into an injective object $I^1$ (with
+cokernel $K^2$), generating isomorphisms $H^1(K^1) \cong \mathcal{F}(K^2) /
+\im(\mathcal{F}(I^1))$. Repeating this process, we generate an \textit{injective
+    resolution} of the object $X$
 \begin{center}
     \begin{tikzcd}
         & & & K^1 \ar[dr]
@@ -165,47 +256,81 @@ This gives us that $H^1(X) = \mathcal{F}(K^1) / \im(\mathcal{F}(I^0))$, which le
         & & & & & K^2 \ar[ur]
     \end{tikzcd}
 \end{center}
-The resolution itself is the chain complex $0 \to X \to I^\bullet$. Note that, essentially by construction, the resolution is exact. Now, calculating the higher cohomology groups is reduced to induction. By definition,
+The resolution itself is the chain complex $0 \to X \to I^\bullet$. Note that,
+essentially by construction, the resolution is exact. Now, calculating the
+higher cohomology groups is reduced to induction. By definition,
 \[
-    H^i(X) = H^{i-1}(K^1) = H^{i-2}(K^2) = \cdots = H^1(K^{i-1}) = \mathcal{F}(K^i) / \im(\mathcal{F}(K^{i-1}))
+    H^i(X) = H^{i-1}(K^1) = H^{i-2}(K^2) = \cdots = H^1(K^{i-1}) =
+    \mathcal{F}(K^i) / \im(\mathcal{F}(K^{i-1}))
 \]
-We can simplify this further to remove reference to the $K^i$ objects. As $\mathcal{F}$ is left-exact, the sequence $0 \to K^i \to I^i \to I^{i+1}$ gives rise to an isomorphism $\mathcal{F}(K^i) \cong \ker(\mathcal{F}(I^i))$. Thus, after all this work, we can compute $H^i(X)$ by taking an injective resolution $0 \to X \to I^\bullet$ and computing the cohomology of the complex $0 \to I^\bullet$.
+We can simplify this further to remove reference to the $K^i$ objects. As
+$\mathcal{F}$ is left-exact, the sequence $0 \to K^i \to I^i \to I^{i+1}$ gives
+rise to an isomorphism $\mathcal{F}(K^i) \cong \ker(\mathcal{F}(I^i))$. Thus,
+after all this work, we can compute $H^i(X)$ by taking an injective resolution
+$0 \to X \to I^\bullet$ and computing the cohomology of the complex $0 \to
+I^\bullet$.
 
-There are many things to check. Primarily, one should ask the following question: if one takes two distinct resolutions of $X$, does the computation of $H^i(X)$ differ? The answer is given by the following lemma, when one takes $f : X \to X$ to be the identity.
+There are many things to check. Primarily, one should ask the following
+question: if one takes two distinct resolutions of $X$, does the computation of
+$H^i(X)$ differ? The answer is given by the following lemma, when one takes $f :
+X \to X$ to be the identity.
 
 \begin{lemma}
-    Let $\alpha : X \to I^\bullet$ and $\beta : Y \to J^\bullet$ be injective resolutions of $X$ and $Y$, respectively. A map $f : X \to Y$ induces a map $\tilde{f} : I^\bullet \to J^\bullet$ which satisfies $\tilde{f} \circ \alpha = \beta \circ f$, and this map is unique up to chain homotopy.
+    Let $\alpha : X \to I^\bullet$ and $\beta : Y \to J^\bullet$ be injective
+    resolutions of $X$ and $Y$, respectively. A map $f : X \to Y$ induces a map
+    $\tilde{f} : I^\bullet \to J^\bullet$ which satisfies $\tilde{f} \circ
+    \alpha = \beta \circ f$, and this map is unique up to chain homotopy.
 \end{lemma}
 
-The lemma and the previous discussion motivate the following definition. Before we make it, fix once and for all an injective resolution for each object of our ambient category.
+The lemma and the previous discussion motivate the following definition. Before
+we make it, fix once and for all an injective resolution for each object of our
+ambient category.
 
 \begin{definition}
-    Let $\mathcal{F}$ be a left exact functor of abelian categories, where the domain has enough injectives. The \textit{right derived functors} of $\mathcal{F}$ are the objects formed by taking an injective resolution $0 \to X \to I^\bullet$, chopping off $X$, applying $\mathcal{F}$ to $0 \to I^\bullet$, and taking cohomology. Symbolically,
+    Let $\mathcal{F}$ be a left exact functor of abelian categories, where the
+    domain has enough injectives. The \textit{right derived functors} of
+    $\mathcal{F}$ are the objects formed by taking an injective resolution $0
+    \to X \to I^\bullet$, chopping off $X$, applying $\mathcal{F}$ to $0 \to
+    I^\bullet$, and taking cohomology. Symbolically,
     \[
-        R^i\mathcal{F}(X) = h^i(I^\bullet) = \frac{\ker\left( \mathcal{F}(I^i \to I^{i+1})\right)}{\im\left( \mathcal{F}(I^{i-1} \to I^i)\right)}
-    \]
+        R^i\mathcal{F}(X) = h^i(I^\bullet) = \frac{\ker\left( \mathcal{F}(I^i
+                \to I^{i+1})\right)}{\im\left( \mathcal{F}(I^{i-1} \to
+                I^i)\right)} \]
     where $0 \to X \to I^\bullet$ is the chosen injective resolution of $X$.
 \end{definition}
 
-The functors $R^i \mathcal{F}({-})$ depend on the choice of resolution for each object. But, by Lemma 1.5, different choices yield isomorphic functors.
+The functors $R^i \mathcal{F}({-})$ depend on the choice of resolution for each
+object. But, by Lemma 1.5, different choices yield isomorphic functors.
 
 \begin{remark}
-    In the previous work, we (crucially) used the fact if $I$ was injective, then it has no higher cohomology. However, the same game would have worked if we had taken an $\mathcal{F}$-\textit{acyclic} resolution $J^\bullet$ of $X$, where $R^{i}\mathcal{F}(J^k) = 0$ for $i, k > 0$. This is particularly useful in the case of sheaf cohomology, where often we compute the cohomology groups $H^i(X, \mathcal{F})$ by taking flasque or fine resolutions.
+    In the previous work, we (crucially) used the fact if $I$ was injective,
+    then it has no higher cohomology. However, the same game would have worked
+    if we had taken an $\mathcal{F}$-\textit{acyclic} resolution $J^\bullet$ of
+    $X$, where $R^{i}\mathcal{F}(J^k) = 0$ for $i, k > 0$. This is particularly
+    useful in the case of sheaf cohomology, where often we compute the
+    cohomology groups $H^i(X, \mathcal{F})$ by taking flasque or fine
+    resolutions.
 \end{remark}
 
-Although we have motivated this definition, we still need to formally prove some results about it.
+Although we have motivated this definition, we still need to formally prove some
+results about it.
 
 \begin{theorem}
     The functors $R^i \mathcal{F}({-})$ satisfy the following properties
     \begin{enumerate}
         \item $R^0 \mathcal{F}(X) = \mathcal{F}(X)$.
-        \item Short exact sequences give rise to long exact sequences under $R^i \mathcal{F}$.
+        \item Short exact sequences give rise to long exact sequences under $R^i
+            \mathcal{F}$.
     \end{enumerate}
 
     \begin{proof}
-        The kernel of the map $\mathcal{F}(I^0 \to I^1)$ is the object $\mathcal{F}(X)$. The image of $\mathcal{F}(I^{-1} \to I^0)$, taking $I^{-1} = 0$, is $0$. This proves (1).
+        The kernel of the map $\mathcal{F}(I^0 \to I^1)$ is the object
+        $\mathcal{F}(X)$. The image of $\mathcal{F}(I^{-1} \to I^0)$, taking
+        $I^{-1} = 0$, is $0$. This proves (1).
 
-        Given a short exact sequence $0 \to A \to B \to C \to 0$, we take injective resolutions of each object, and the Lemma induces maps between the resolutions. Diagramatically, we have
+        Given a short exact sequence $0 \to A \to B \to C \to 0$, we take
+        injective resolutions of each object, and the Lemma induces maps between
+        the resolutions. Diagramatically, we have
         \begin{center}
             \begin{tikzcd}
                 0 \ar[r] & A \ar[r] \ar[d] & B \ar[r] \ar[d] & C \ar[r] \ar[d] & 0 \\
@@ -214,17 +339,25 @@ Although we have motivated this definition, we still need to formally prove some
                 & \vdots & \vdots & \vdots
             \end{tikzcd}
         \end{center}
-        Apply the snake lemma to each row. This gives the desired long exact sequence. Naturality of the snake lemma yields naturality of the induced long exact sequence.
+        Apply the snake lemma to each row. This gives the desired long exact
+        sequence. Naturality of the snake lemma yields naturality of the induced
+        long exact sequence.
     \end{proof}
 \end{theorem}
 
 \begin{example}
-    The core example of these notes is the $\Ext$ functor. However, note that this definition is central to many aspects of commutative algebra. Cohomology of groups and of sheaves (an algebraic tool to keep track of local data on a topological space) are described explicitly by derived functors.
+    The core example of these notes is the $\Ext$ functor. However, note that
+    this definition is central to many aspects of commutative algebra.
+    Cohomology of groups and of sheaves (an algebraic tool to keep track of
+    local data on a topological space) are described explicitly by derived
+    functors. 
 \end{example}
 
 \section{Ext}
 
-Let $R$ be a commutative ring with unity. The category $\Mod(R)$ of $R$-modules is abelian. If $0 \to A \to B \to C \to 0$ is an exact sequence of $R$-modules, the the sequences
+Let $R$ be a commutative ring with unity. The category $\Mod(R)$ of $R$-modules
+is abelian. If $0 \to A \to B \to C \to 0$ is an exact sequence of $R$-modules,
+the the sequences
 \begin{center}
     \begin{tikzcd}
         0 \ar[r] &
